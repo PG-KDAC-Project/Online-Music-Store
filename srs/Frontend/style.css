@@ -1,0 +1,264 @@
+/* Base Styles */
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+/* Login Page */
+.login-page {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1db954;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #000000 !important;
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1db954 !important;
+}
+
+.nav-link {
+    color: #b3b3b3 !important;
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #ffffff !important;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #000000;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    position: sticky;
+    top: 70px;
+}
+
+.sidebar-sticky {
+    padding: 1rem;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link i {
+    margin-right: 0.5rem;
+}
+
+.sidebar-heading {
+    color: #b3b3b3;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1rem 0.5rem 0.5rem;
+    margin-top: 1rem;
+    border-top: 1px solid #282828;
+}
+
+/* Main Content */
+.main-content {
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+/* Cards */
+.card {
+    background-color: #181818;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    background-color: #282828;
+    transform: scale(1.02);
+}
+
+.card-img-top {
+    border-radius: 0;
+}
+
+.playlist-card {
+    height: 100%;
+}
+
+.playlist-card .card-body {
+    padding: 1rem;
+}
+
+.play-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .play-btn {
+    opacity: 1;
+}
+
+/* Tables */
+.table {
+    color: #ffffff;
+}
+
+.table-dark {
+    background-color: transparent;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Player Controls */
+.player-controls {
+    background-color: #181818;
+    border-top: 1px solid #282828;
+    padding: 0.8rem 0;
+    z-index: 1000;
+}
+
+.album-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+}
+
+.song-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.artist-name {
+    font-size: 0.8rem;
+    color: #b3b3b3;
+}
+
+.control-btn {
+    color: #ffffff !important;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.progress-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.progress {
+    background-color: #535353;
+    height: 4px;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.progress-bar {
+    background-color: #1db954;
+}
+
+.time-info {
+    font-size: 0.7rem;
+    color: #b3b3b3;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    width: 120px;
+}
+
+.volume-control i {
+    margin-right: 0.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #1db954;
+    border-color: #1db954;
+}
+
+.btn-primary:hover {
+    background-color: #1ed760;
+    border-color: #1ed760;
+}
+
+.btn-outline-primary {
+    color: #1db954;
+    border-color: #1db954;
+}
+
+.btn-outline-primary:hover {
+    background-color: #1db954;
+    border-color: #1db954;
+}
+
+/* Form Elements */
+.form-control,
+.form-select {
+    background-color: #282828;
+    border: 1px solid #535353;
+    color: #ffffff;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #383838;
+    border-color: #1db954;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(29, 185, 84, 0.25);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+        position: relative;
+        top: 0;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .player-controls {
+        padding: 0.5rem;
+    }
+
+    .control-btn {
+        font-size: 1.2rem;
+    }
+}

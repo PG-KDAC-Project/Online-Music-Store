@@ -4,382 +4,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scotify | Player</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>MelodyMingle Player | Enjoy Your Music</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="script.js" defer></script>
     <style>
-        .waveform {
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
         }
 
-        .waveform-bar {
-            width: 4px;
-            background: #1DB954;
-            border-radius: 2px;
-            animation: equalize 1.2s infinite ease-in-out;
+        .sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #1e293b;
         }
 
-        @keyframes equalize {
-
-            0%,
-            100% {
-                height: 10px;
-            }
-
-            50% {
-                height: 30px;
-            }
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
         }
 
-        .waveform-bar:nth-child(1) {
-            animation-delay: 0.1s;
+        .sidebar::-webkit-scrollbar-track {
+            background: #1e293b;
         }
 
-        .waveform-bar:nth-child(2) {
-            animation-delay: 0.3s;
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #3b82f6;
+            border-radius: 3px;
         }
 
-        .waveform-bar:nth-child(3) {
-            animation-delay: 0.5s;
+        .song-item:hover .play-button {
+            opacity: 1;
         }
 
-        .waveform-bar:nth-child(4) {
-            animation-delay: 0.2s;
-        }
-
-        .waveform-bar:nth-child(5) {
-            animation-delay: 0.4s;
-        }
-
-        .waveform-bar:nth-child(6) {
-            animation-delay: 0.6s;
-        }
-
-        .waveform-bar:nth-child(7) {
-            animation-delay: 0.1s;
+        .play-button {
+            opacity: 0;
+            transition: opacity 0.2s ease;
         }
     </style>
 </head>
 
-<body class="bg-black text-white min-h-screen flex flex-col">
-    <div class="flex flex-col flex-grow">
+<body class="min-h-screen bg-gray-900">
+    <!-- Layout -->
+    <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <div class="flex flex-col md:flex-row flex-grow">
-            <div class="w-full md:w-64 bg-gray-900 p-4 hidden md:block">
-                <div class="mb-8">
-                    <h1 class="text-2xl font-bold text-green-500 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1DB954" class="w-8 h-8 mr-2">
-                            <path fill-rule="evenodd"
-                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm0 8.625a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM15.375 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        SCOTIFY
-                    </h1>
+        <div class="hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64 border-r border-gray-800 bg-gray-900">
+                <!-- Logo -->
+                <div class="h-16 flex items-center px-6 border-b border-gray-800">
+                    <i data-feather="music" class="text-blue-400 h-6 w-6"></i>
+                    <span class="ml-2 text-xl font-bold text-white">MelodyMingle</span>
                 </div>
 
-                <nav>
-                    <ul class="space-y-4">
-                        <li>
+                <!-- Navigation -->
+                <div class="flex-1 overflow-y-auto sidebar">
+                    <nav class="px-4 py-6">
+                        <div class="space-y-1">
                             <a href="#"
-                                class="flex items-center text-white hover:text-green-500 transition duration-200">
-                                <i data-feather="home" class="w-5 h-5 mr-3"></i>
+                                class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-white bg-gray-800">
+                                <i data-feather="home" class="text-blue-400 h-4 w-4 mr-3"></i>
                                 Home
                             </a>
-                        </li>
-                        <li>
                             <a href="#"
-                                class="flex items-center text-white hover:text-green-500 transition duration-200">
-                                <i data-feather="search" class="w-5 h-5 mr-3"></i>
-                                Search
+                                class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800">
+                                <i data-feather="search" class="h-4 w-4 mr-3"></i>
+                                Browse
                             </a>
-                        </li>
-                        <li>
                             <a href="#"
-                                class="flex items-center text-white hover:text-green-500 transition duration-200">
-                                <i data-feather="music" class="w-5 h-5 mr-3"></i>
-                                My Library
+                                class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800">
+                                <i data-feather="radio" class="h-4 w-4 mr-3"></i>
+                                Radio
                             </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center text-green-500">
-                                <i data-feather="heart" class="w-5 h-5 mr-3"></i>
-                                Liked Songs
-                            </a>
-                        </li>
-                        <li>
                             <a href="#"
-                                class="flex items-center text-white hover:text-green-500 transition duration-200">
-                                <i data-feather="plus-circle" class="w-5 h-5 mr-3"></i>
-                                Create Playlist
+                                class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800">
+                                <i data-feather="music" class="h-4 w-4 mr-3"></i>
+                                Your Library
                             </a>
-                        </li>
-                    </ul>
-                </nav>
+                        </div>
 
-                <div class="mt-8 border-t border-gray-800 pt-4">
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200">Legal</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200">Privacy</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-200"
-                                onclick="logout()">Logout</a></li>
-                    </ul>
+                        <!-- Library Section -->
+                        <div class="mt-8">
+                            <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">Library</h3>
+                            <div class="mt-3 space-y-1">
+                                <a href="#"
+                                    class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800">
+                                    <i data-feather="clock" class="h-4 w-4 mr-3"></i>
+                                    Recently Played
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800">
+                                    <i data-feather="heart" class="h-4 w-4 mr-3 text-red-400"></i>
+                                    Liked Songs
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-3 py-3 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800">
+                                    <i data-feather="plus" class="h-4 w-4 mr-3 text-blue-400"></i>
+                                    Create Playlist
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Playlists -->
+                        <div class="mt-8">
+                            <h3 class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">Your Playlists
+                            </h3>
+                            <div class="mt-3 space-y-1">
+                                <a href="#"
+                                    class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800 truncate">
+                                    Workout Mix
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800 truncate">
+                                    Study Focus
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800 truncate">
+                                    Road Trip 2023
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800 truncate">
+                                    Chill Sunday
+                                </a>
+                                <a href="#"
+                                    class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:text-white hover:bg-gray-800 truncate">
+                                    Party Hits
+                                </a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- User Profile -->
+                <div class="p-4 border-t border-gray-800">
+                    <div class="flex items-center">
+                        <img src="http://static.photos/people/200x200/1" alt="User" class="h-8 w-8 rounded-full mr-2">
+                        <div>
+                            <div class="text-sm font-medium text-white">John Doe</div>
+                            <div class="text-xs text-gray-400">john.doe@example.com</div>
+                        </div>
+                        <button class="ml-auto text-gray-400 hover:text-white">
+                            <i data-feather="more-vertical" class="h-4 w-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <div class="bg-gradient-to-b from-indigo-900 to-gray-900 h-72">
+                <div class="flex justify-between items-center p-6">
+                    <div class="flex items-center space-x-4">
+                        <button class="bg-black bg-opacity-40 rounded-full p-2 text-white">
+                            <i data-feather="arrow-left" class="h-5 w-5"></i>
+                        </button>
+                        <button class="bg-black bg-opacity-40 rounded-full p-2 text-white">
+                            <i data-feather="arrow-right" class="h-5 w-5"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button
+                            class="bg-white text-black px-4 py-1 rounded-full font-bold text-sm hover:scale-105 transform transition">
+                            Upgrade
+                        </button>
+                        <div class="relative">
+                            <button
+                                class="flex items-center bg-black bg-opacity-60 hover:bg-opacity-80 text-white px-3 py-1 rounded-full text-sm">
+                                <img src="http://static.photos/people/200x200/1" alt="User"
+                                    class="h-6 w-6 rounded-full mr-2">
+                                John Doe
+                                <i data-feather="chevron-down" class="h-4 w-4 ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Playlist Header -->
+                <div class="px-6 pt-8 pb-6 flex items-end">
+                    <div class="relative">
+                        <img src="http://static.photos/music/640x360/1" alt="Playlist"
+                            class="h-48 w-48 shadow-2xl rounded-md">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 rounded-md">
+                        </div>
+                    </div>
+                    <div class="ml-6">
+                        <p class="text-sm font-semibold text-white">PLAYLIST</p>
+                        <h1 class="text-4xl md:text-6xl font-bold mt-2 text-white">Liked Songs</h1>
+                        <p class="text-sm text-gray-300 mt-2">Your collection of favorite tracks</p>
+                        <div class="flex items-center mt-4 text-sm text-gray-300">
+                            <img src="http://static.photos/people/200x200/1" alt="User"
+                                class="h-6 w-6 rounded-full mr-2">
+                            <span>John Doe</span>
+                            <span class="mx-1">•</span>
+                            <span>125 songs</span>
+                            <span class="mx-1">•</span>
+                            <span>7 hr 42 min</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="flex-grow bg-gradient-to-b from-gray-900 to-black p-6 overflow-y-auto">
-                <!-- Mobile Header -->
-                <div class="flex justify-between items-center mb-6 md:hidden">
-                    <button class="text-white">
-                        <i data-feather="menu"></i>
-                    </button>
-                    <h1 class="text-xl font-bold text-green-500">SCOTIFY</h1>
-                    <div class="w-6"></div>
-                </div>
-
-                <h1 class="text-3xl font-bold mb-8">Liked Songs</h1>
-
-                <!-- Search Bar -->
-                <div class="relative mb-8">
-                    <input type="text" placeholder="Search for songs, artists, or albums"
-                        class="w-full bg-gray-800 text-white px-4 py-3 rounded-full pl-12 focus:outline-none focus:ring-2 focus:ring-green-500">
-                    <i data-feather="search" class="absolute left-4 top-3.5 text-gray-400"></i>
+            <!-- Playlist Content -->
+            <div class="bg-gradient-to-b from-gray-900 to-gray-900 px-6 pt-6 pb-32">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center space-x-6">
+                        <button
+                            class="bg-green-500 text-white p-4 rounded-full hover:bg-green-600 transform hover:scale-105 transition">
+                            <i data-feather="play" class="h-6 w-6"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-white">
+                            <i data-feather="heart" class="h-6 w-6"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-white">
+                            <i data-feather="more-vertical" class="h-6 w-6"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="relative mr-4">
+                            <input type="text" placeholder="Filter"
+                                class="bg-gray-800 text-white rounded-full py-1 px-4 pl-10 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <i data-feather="search" class="absolute left-3 top-2 text-gray-400"></i>
+                        </div>
+                        <button class="text-gray-400 hover:text-white">
+                            <i data-feather="list" class="h-6 w-6"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Songs List -->
-                <div class="space-y-2">
-                    <div class="song-item flex items-center p-3 bg-gray-800 bg-opacity-30 hover:bg-gray-800 rounded-lg transition duration-200"
-                        data-id="1">
-                        <div class="mr-4 relative">
-                            <img src="http://static.photos/music/200x200/1" alt="Album Cover" class="w-12 h-12 rounded">
-                            <button
-                                class="play-btn absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-200">
-                                <i data-feather="play" class="text-white bg-green-500 rounded-full p-2"></i>
-                            </button>
+                <div class="mb-8">
+                    <div
+                        class="grid grid-cols-12 gap-4 px-4 py-3 text-sm font-medium text-gray-400 border-b border-gray-800">
+                        <div class="col-span-1 text-center">#</div>
+                        <div class="col-span-5">TITLE</div>
+                        <div class="col-span-4">ALBUM</div>
+                        <div class="col-span-1">DATE ADDED</div>
+                        <div class="col-span-1 text-right">DURATION</div>
+                    </div>
+
+                    <!-- Song Item -->
+                    <div
+                        class="grid grid-cols-12 gap-4 px-4 py-3 items-center song-item hover:bg-gray-800 rounded-lg group">
+                        <div class="col-span-1 text-center text-gray-400 group-hover:text-white">1</div>
+                        <div class="col-span-5 flex items-center">
+                            <div class="relative mr-4">
+                                <img src="http://static.photos/music/200x200/1" alt="Album" class="h-10 w-10 rounded">
+                                <button
+                                    class="absolute inset-0 flex items-center justify-center play-button bg-black bg-opacity-60 rounded">
+                                    <i data-feather="play" class="h-4 w-4 text-white"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">Blinding Lights</div>
+                                <div class="text-sm text-gray-400">The Weeknd</div>
+                            </div>
                         </div>
-                        <div class="flex-grow">
-                            <h3 class="font-medium">Blinding Lights</h3>
-                            <p class="text-gray-400 text-sm">The Weeknd</p>
-                        </div>
-                        <div class="flex items-center">
-                            <button class="like-btn text-green-500 mx-4">
-                                <i data-feather="heart" class="w-5 h-5"></i>
+                        <div class="col-span-4 text-gray-400 group-hover:text-white">After Hours</div>
+                        <div class="col-span-1 text-gray-400 text-sm group-hover:text-white">2 days ago</div>
+                        <div class="col-span-1 flex items-center justify-end">
+                            <span class="text-gray-400 text-sm group-hover:text-white mr-4">3:20</span>
+                            <button class="text-gray-400 hover:text-white opacity-0 group-hover:opacity-100">
+                                <i data-feather="heart" class="h-4 w-4"></i>
                             </button>
-                            <span class="text-gray-400 text-sm">3:20</span>
-                            <button class="download-btn ml-4 text-gray-400 hover:text-white">
-                                <i data-feather="download" class="w-5 h-5"></i>
+                            <button class="text-gray-400 hover:text-white opacity-0 group-hover:opacity-100 ml-2">
+                                <i data-feather="more-vertical" class="h-4 w-4"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="song-item flex items-center p-3 bg-gray-800 bg-opacity-30 hover:bg-gray-800 rounded-lg transition duration-200"
-                        data-id="2">
-                        <div class="mr-4 relative">
-                            <img src="http://static.photos/music/200x200/2" alt="Album Cover" class="w-12 h-12 rounded">
-                            <button
-                                class="play-btn absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-200">
-                                <i data-feather="play" class="text-white bg-green-500 rounded-full p-2"></i>
-                            </button>
+                    <!-- Repeat for other songs -->
+                    <div
+                        class="grid grid-cols-12 gap-4 px-4 py-3 items-center song-item hover:bg-gray-800 rounded-lg group">
+                        <div class="col-span-1 text-center text-gray-400 group-hover:text-white">2</div>
+                        <div class="col-span-5 flex items-center">
+                            <div class="relative mr-4">
+                                <img src="http://static.photos/music/200x200/2" alt="Album" class="h-10 w-10 rounded">
+                                <button
+                                    class="absolute inset-0 flex items-center justify-center play-button bg-black bg-opacity-60 rounded">
+                                    <i data-feather="play" class="h-4 w-4 text-white"></i>
+                                </button>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">Save Your Tears</div>
+                                <div class="text-sm text-gray-400">The Weeknd</div>
+                            </div>
                         </div>
-                        <div class="flex-grow">
-                            <h3 class="font-medium">Save Your Tears</h3>
-                            <p class="text-gray-400 text-sm">The Weeknd</p>
-                        </div>
-                        <div class="flex items-center">
-                            <button class="like-btn text-gray-400 hover:text-green-500 mx-4">
-                                <i data-feather="heart" class="w-5 h-5"></i>
+                        <div class="col-span-4 text-gray-400 group-hover:text-white">After Hours</div>
+                        <div class="col-span-1 text-gray-400 text-sm group-hover:text-white">1 week ago</div>
+                        <div class="col-span-1 flex items-center justify-end">
+                            <span class="text-gray-400 text-sm group-hover:text-white mr-4">3:35</span>
+                            <button class="text-red-400 opacity-100">
+                                <i data-feather="heart" class="h-4 w-4"></i>
                             </button>
-                            <span class="text-gray-400 text-sm">3:35</span>
-                            <button class="download-btn ml-4 text-gray-400 hover:text-white">
-                                <i data-feather="download" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="song-item flex items-center p-3 bg-gray-800 bg-opacity-30 hover:bg-gray-800 rounded-lg transition duration-200"
-                        data-id="3">
-                        <div class="mr-4 relative">
-                            <img src="http://static.photos/music/200x200/3" alt="Album Cover" class="w-12 h-12 rounded">
-                            <button
-                                class="play-btn absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-200">
-                                <i data-feather="play" class="text-white bg-green-500 rounded-full p-2"></i>
-                            </button>
-                        </div>
-                        <div class="flex-grow">
-                            <h3 class="font-medium">Stay</h3>
-                            <p class="text-gray-400 text-sm">The Kid LAROI, Justin Bieber</p>
-                        </div>
-                        <div class="flex items-center">
-                            <button class="like-btn text-gray-400 hover:text-green-500 mx-4">
-                                <i data-feather="heart" class="w-5 h-5"></i>
-                            </button>
-                            <span class="text-gray-400 text-sm">2:21</span>
-                            <button class="download-btn ml-4 text-gray-400 hover:text-white">
-                                <i data-feather="download" class="w-5 h-5"></i>
+                            <button class="text-gray-400 hover:text-white opacity-0 group-hover:opacity-100 ml-2">
+                                <i data-feather="more-vertical" class="h-4 w-4"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="song-item flex items-center p-3 bg-gray-800 bg-opacity-30 hover:bg-gray-800 rounded-lg transition duration-200"
-                        data-id="4">
-                        <div class="mr-4 relative">
-                            <img src="http://static.photos/music/200x200/4" alt="Album Cover" class="w-12 h-12 rounded">
-                            <button
-                                class="play-btn absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-200">
-                                <i data-feather="play" class="text-white bg-green-500 rounded-full p-2"></i>
-                            </button>
-                        </div>
-                        <div class="flex-grow">
-                            <h3 class="font-medium">Levitating</h3>
-                            <p class="text-gray-400 text-sm">Dua Lipa</p>
-                        </div>
-                        <div class="flex items-center">
-                            <button class="like-btn text-green-500 mx-4">
-                                <i data-feather="heart" class="w-5 h-5"></i>
-                            </button>
-                            <span class="text-gray-400 text-sm">3:23</span>
-                            <button class="download-btn ml-4 text-gray-400 hover:text-white">
-                                <i data-feather="download" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <!-- More song items would be here -->
+                </div>
 
-                    <div class="song-item flex items-center p-3 bg-gray-800 bg-opacity-30 hover:bg-gray-800 rounded-lg transition duration-200"
-                        data-id="5">
-                        <div class="mr-4 relative">
-                            <img src="http://static.photos/music/200x200/5" alt="Album Cover" class="w-12 h-12 rounded">
-                            <button
-                                class="play-btn absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition duration-200">
-                                <i data-feather="play" class="text-white bg-green-500 rounded-full p-2"></i>
-                            </button>
+                <!-- Recently Added Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-6 text-white">Recently Added</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        <!-- Recently Added Album 1 -->
+                        <div
+                            class="bg-gray-800 bg-opacity-60 rounded-lg overflow-hidden hover:bg-opacity-80 transition-all duration-300 cursor-pointer group">
+                            <div class="relative">
+                                <img src="http://static.photos/music/640x360/3" alt="Album"
+                                    class="w-full h-40 object-cover">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60">
+                                </div>
+                                <button
+                                    class="absolute bottom-3 right-3 bg-green-500 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-green-600 hover:scale-105">
+                                    <i data-feather="play" class="h-4 w-4"></i>
+                                </button>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-white truncate">Future Nostalgia</h3>
+                                <p class="text-gray-400 text-sm mt-1">Dua Lipa • 2020</p>
+                            </div>
                         </div>
-                        <div class="flex-grow">
-                            <h3 class="font-medium">good 4 u</h3>
-                            <p class="text-gray-400 text-sm">Olivia Rodrigo</p>
-                        </div>
-                        <div class="flex items-center">
-                            <button class="like-btn text-gray-400 hover:text-green-500 mx-4">
-                                <i data-feather="heart" class="w-5 h-5"></i>
-                            </button>
-                            <span class="text-gray-400 text-sm">2:58</span>
-                            <button class="download-btn ml-4 text-gray-400 hover:text-white">
-                                <i data-feather="download" class="w-5 h-5"></i>
-                            </button>
-                        </div>
+
+                        <!-- More recently added items would be here -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Player Controls -->
-    <div class="bg-gray-900 border-t border-gray-800 p-4">
-        <div class="flex flex-col md:flex-row items-center">
+    <!-- Player Bar -->
+    <div class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800">
+        <div class="max-w-full mx-auto px-4 py-3 flex items-center justify-between">
             <!-- Song Info -->
-            <div class="flex items-center w-full md:w-1/4 mb-4 md:mb-0">
-                <img src="http://static.photos/music/200x200/1" alt="Album Cover" class="w-14 h-14 rounded mr-3">
+            <div class="flex items-center w-1/4">
+                <img src="http://static.photos/music/200x200/1" alt="Current Song" class="h-12 w-12 rounded-md mr-3">
                 <div>
-                    <h4 class="font-medium">Blinding Lights</h4>
-                    <p class="text-gray-400 text-sm">The Weeknd</p>
+                    <div class="text-sm font-medium text-white">Blinding Lights</div>
+                    <div class="text-xs text-gray-400">The Weeknd</div>
                 </div>
-                <button class="like-btn ml-4 text-green-500">
-                    <i data-feather="heart" class="w-5 h-5"></i>
+                <button class="ml-4 text-red-400">
+                    <i data-feather="heart" class="h-4 w-4"></i>
                 </button>
             </div>
 
             <!-- Player Controls -->
-            <div class="w-full md:w-2/4 flex flex-col items-center">
-                <div class="flex items-center mb-2">
+            <div class="flex flex-col items-center w-2/4">
+                <div class="flex items-center mb-1">
                     <button class="mx-2 text-gray-400 hover:text-white">
-                        <i data-feather="shuffle" class="w-5 h-5"></i>
+                        <i data-feather="shuffle" class="h-4 w-4"></i>
                     </button>
                     <button class="mx-2 text-gray-400 hover:text-white">
-                        <i data-feather="skip-back" class="w-5 h-5"></i>
+                        <i data-feather="skip-back" class="h-5 w-5"></i>
                     </button>
                     <button
-                        class="mx-3 bg-green-500 hover:bg-green-600 rounded-full w-10 h-10 flex items-center justify-center text-white">
-                        <i data-feather="play" class="w-5 h-5"></i>
+                        class="mx-3 bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transform hover:scale-105">
+                        <i data-feather="pause" class="h-5 w-5"></i>
                     </button>
                     <button class="mx-2 text-gray-400 hover:text-white">
-                        <i data-feather="skip-forward" class="w-5 h-5"></i>
+                        <i data-feather="skip-forward" class="h-5 w-5"></i>
                     </button>
                     <button class="mx-2 text-gray-400 hover:text-white">
-                        <i data-feather="repeat" class="w-5 h-5"></i>
+                        <i data-feather="repeat" class="h-4 w-4"></i>
                     </button>
                 </div>
                 <div class="w-full flex items-center">
-                    <span class="text-xs text-gray-400 mr-2">0:45</span>
-                    <div class="flex-grow relative">
-                        <div class="h-1 bg-gray-700 rounded-full">
-                            <div class="h-1 bg-green-500 rounded-full" style="width: 30%"></div>
-                            <div class="absolute top-0 left-[30%] w-3 h-3 bg-white rounded-full -mt-1"></div>
-                        </div>
+                    <span class="text-xs text-gray-400 mr-2">1:45</span>
+                    <div class="flex-1 bg-gray-700 rounded-full h-1 overflow-hidden">
+                        <div class="bg-green-500 h-full" style="width: 45%"></div>
                     </div>
                     <span class="text-xs text-gray-400 ml-2">3:20</span>
                 </div>
             </div>
 
-            <!-- Volume Controls -->
-            <div class="w-full md:w-1/4 flex items-center justify-end mt-4 md:mt-0">
-                <i data-feather="volume-2" class="w-5 h-5 text-gray-400 mr-2"></i>
-                <div class="w-24">
-                    <div class="h-1 bg-gray-700 rounded-full">
-                        <div class="h-1 bg-gray-400 rounded-full" style="width: 70%"></div>
+            <!-- Volume & Other Controls -->
+            <div class="flex items-center justify-end w-1/4">
+                <button class="mx-2 text-gray-400 hover:text-white">
+                    <i data-feather="mic" class="h-4 w-4"></i>
+                </button>
+                <button class="mx-2 text-gray-400 hover:text-white">
+                    <i data-feather="list" class="h-4 w-4"></i>
+                </button>
+                <div class="flex items-center ml-4">
+                    <i data-feather="volume" class="h-4 w-4 text-gray-400 mr-2"></i>
+                    <div class="w-20 bg-gray-700 rounded-full h-1 overflow-hidden">
+                        <div class="bg-green-500 h-full" style="width: 80%"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Visualizer (Mobile only) -->
-        <div class="mt-4 md:hidden">
-            <div class="waveform">
-                <div class="waveform-bar"></div>
-                <div class="waveform-bar"></div>
-                <div class="waveform-bar"></div>
-                <div class="waveform-bar"></div>
-                <div class="waveform-bar"></div>
-                <div class="waveform-bar"></div>
-                <div class="waveform-bar"></div>
+                <button class="ml-4 text-gray-400 hover:text-white">
+                    <i data-feather="maximize" class="h-4 w-4"></i>
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- Create Playlist Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden"
+        id="createPlaylistModal">
+        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-white">Create Playlist</h3>
+                <button class="text-gray-400 hover:text-white"
+                    onclick="document.getElementById('createPlaylistModal').classList.add('hidden')">
+                    <i data-feather="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <form>
+                <div class="mb-4">
+                    <label for="playlistName" class="block text-sm font-medium text-gray-300 mb-2">Playlist Name</label>
+                    <input type="text" id="playlistName"
+                        class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="playlistDescription"
+                        class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                    <textarea id="playlistDescription" rows="3"
+                        class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button"
+                        class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-600"
+                        onclick="document.getElementById('createPlaylistModal').classList.add('hidden')">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-md hover:bg-green-600">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
+        // Initialize Feather Icons
         feather.replace();
 
-        // Toggle play/pause button
-        const playBtns = document.querySelectorAll('.play-btn');
-        playBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const playIcon = this.querySelector('i');
-                if (playIcon.dataset.feather === 'play') {
-                    playIcon.dataset.feather = 'pause';
-                    feather.replace();
-                } else {
-                    playIcon.dataset.feather = 'play';
-                    feather.replace();
-                }
-            });
-        });
+        // Show create playlist modal
+        function showCreatePlaylistModal() {
+            document.getElementById('createPlaylistModal').classList.remove('hidden');
+        }
 
-        // Toggle like button
-        const likeBtns = document.querySelectorAll('.like-btn');
-        likeBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const heartIcon = this.querySelector('i');
-                if (heartIcon.classList.contains('text-green-500')) {
-                    heartIcon.classList.remove('text-green-500');
-                    heartIcon.classList.add('text-gray-400', 'hover:text-green-500');
-                } else {
-                    heartIcon.classList.add('text-green-500');
-                    heartIcon.classList.remove('text-gray-400', 'hover:text-green-500');
-                }
+        // Simulate playing a song (for demo purposes)
+        document.querySelectorAll('.song-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const songTitle = this.querySelector('.text-white.font-medium').textContent;
+                const artist = this.querySelector('.text-sm.text-gray-400').textContent;
+                const albumCover = this.querySelector('img').src;
+
+                // Update player bar
+                document.querySelector('.player-bar .text-white.font-medium').textContent = songTitle;
+                document.querySelector('.player-bar .text-xs.text-gray-400').textContent = artist;
+                document.querySelector('.player-bar img').src = albumCover;
+
+                // Change play button to pause
+                const playButton = document.querySelector('.player-bar .bg-green-500 i');
+                playButton.setAttribute('data-feather', 'pause');
+                feather.replace();
             });
         });
     </script>
