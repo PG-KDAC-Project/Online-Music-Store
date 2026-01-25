@@ -1,0 +1,98 @@
+.playlists-page {
+  padding: 1rem;
+}
+
+.playlists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.playlists-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.playlist-header {
+  margin-bottom: 2rem;
+}
+
+.playlist-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.playlists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.playlist-card {
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all var(--transition-medium);
+  cursor: pointer;
+  position: relative;
+}
+
+.playlist-card:hover {
+  background-color: var(--bg-hover);
+}
+
+.playlist-delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.playlist-card:hover .playlist-delete-btn {
+  opacity: 1;
+}
+
+.playlist-delete-btn:hover {
+  background: var(--danger);
+  transform: scale(1.1);
+}
+
+.playlist-card-image {
+  width: 100%;
+  padding-bottom: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.playlist-card-body {
+  padding-top: 8px;
+}
+
+.playlist-card-title {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-card-count {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
