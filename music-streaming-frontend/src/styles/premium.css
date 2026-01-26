@@ -1,0 +1,157 @@
+.premium-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.premium-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #1db954;
+}
+
+.package-card, .subscription-card {
+  background: #282828;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.package-card h2, .subscription-card h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #b3b3b3;
+  margin-bottom: 1.5rem;
+}
+
+.price {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1db954;
+  margin: 1rem 0;
+}
+
+.duration {
+  color: #b3b3b3;
+  margin-bottom: 2rem;
+}
+
+.purchase-btn {
+  background: #1db954;
+  color: #fff;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.purchase-btn:hover {
+  background: #1ed760;
+  transform: scale(1.05);
+}
+
+.subscription-details {
+  text-align: left;
+  margin-top: 1.5rem;
+}
+
+.subscription-details p {
+  color: #b3b3b3;
+  margin: 0.5rem 0;
+}
+
+.subscription-details strong {
+  color: #fff;
+}
+
+.premium-management {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.premium-management h1 {
+  color: #1db954;
+  margin-bottom: 2rem;
+}
+
+.current-package {
+  background: #282828;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.current-package h3 {
+  color: #1db954;
+  margin-bottom: 1rem;
+}
+
+.current-package p {
+  color: #b3b3b3;
+  margin: 0.5rem 0;
+}
+
+.package-form {
+  background: #282828;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: #181818;
+  border: 1px solid #404040;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #1db954;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #1db954;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #1ed760;
+}
+
+.loading {
+  text-align: center;
+  color: #b3b3b3;
+  padding: 2rem;
+}
