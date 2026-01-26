@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
 import { adminService } from '../services/adminService';
+import { toast } from 'react-toastify';
 import '../styles/admin.css';
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [currentUserEmail, setCurrentUserEmail] = useState(null);
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) setCurrentUserEmail(user.email);
     loadUsers();
   }, [filter]);
 
   const loadUsers = async () => {
     try {
-      const response = filter === 'all' 
+      const response = filter === 'all'
         ? await adminService.getAllUsers()
         : await adminService.getUsersByRole(filter);
       setUsers(response.content || response);
@@ -25,25 +29,22 @@ export default function UserManagement() {
   };
 
   const handleSuspend = async (userId) => {
-    const reason = prompt('Enter suspension reason:');
-    if (reason) {
-      try {
-        await adminService.suspendUser(userId, { reason });
-        alert('User suspended');
-        loadUsers();
-      } catch (err) {
-        alert('Failed to suspend user');
-      }
+    try {
+      await adminService.suspendUser(userId, { reason: 'Suspended by admin' });
+      toast.success('User suspended');
+      loadUsers();
+    } catch (err) {
+      toast.error('Failed to suspend user');
     }
   };
 
   const handleActivate = async (userId) => {
     try {
       await adminService.activateUser(userId);
-      alert('User activated');
+      toast.success('User activated');
       loadUsers();
     } catch (err) {
-      alert('Failed to activate user');
+      toast.error('Failed to activate user');
     }
   };
 
@@ -76,6 +77,7 @@ export default function UserManagement() {
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
+              <th>Membership</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -87,12 +89,19 @@ export default function UserManagement() {
                 <td>{user.email}</td>
                 <td><span className="badge">{user.role?.replace('ROLE_', '')}</span></td>
                 <td>
+                  <span className={`badge ${user.premium ? 'badge-warning' : ''}`}>
+                    {user.premium ? 'Premium' : 'Free'}
+                  </span>
+                </td>
+                <td>
                   <span className={`badge ${user.enabled ? 'badge-success' : 'badge-danger'}`}>
                     {user.enabled ? 'Active' : 'Suspended'}
                   </span>
                 </td>
                 <td>
-                  {user.enabled ? (
+                  {user.role?.includes('ADMIN') ? (
+                    <span style={{ color: 'var(--text-secondary)', fontSize: '13px' }}></span>
+                  ) : user.enabled ? (
                     <button className="btn btn-secondary" onClick={() => handleSuspend(user.id)}>
                       Suspend
                     </button>

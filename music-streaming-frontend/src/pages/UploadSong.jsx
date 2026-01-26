@@ -4,6 +4,7 @@ import '../styles/upload.css';
 
 export default function UploadSong() {
   const [file, setFile] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
   const [metadata, setMetadata] = useState({
     title: '',
     album: '',
@@ -46,6 +47,9 @@ export default function UploadSong() {
     try {
       const formData = new FormData();
       formData.append('file', file);
+      if (coverImage) {
+        formData.append('coverImage', coverImage);
+      }
       formData.append('title', metadata.title);
       formData.append('album', metadata.album);
       formData.append('genre', metadata.genre);
@@ -55,6 +59,7 @@ export default function UploadSong() {
       await songService.uploadSong(formData);
       setSuccess('Song uploaded successfully!');
       setFile(null);
+      setCoverImage(null);
       setMetadata({ title: '', album: '', genre: '', language: '', duration: 0 });
     } catch (err) {
       setError(err.response?.data?.message || 'Upload failed');
@@ -76,6 +81,12 @@ export default function UploadSong() {
           <label>Audio File (MP3)</label>
           <input type="file" accept="audio/mpeg" onChange={handleFileChange} required />
           {file && <small>{file.name}</small>}
+        </div>
+
+        <div className="form-group">
+          <label>Cover Image (Optional)</label>
+          <input type="file" accept="image/*" onChange={(e) => setCoverImage(e.target.files[0])} />
+          {coverImage && <small>{coverImage.name}</small>}
         </div>
 
         <div className="form-group">
