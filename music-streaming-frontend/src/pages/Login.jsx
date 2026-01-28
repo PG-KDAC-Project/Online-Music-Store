@@ -40,7 +40,7 @@ export default function Login() {
     <div className="auth-container">
       <div className="auth-card">
         <h1 className="auth-title">Sign In</h1>
-        <p className="auth-subtitle">Welcome back to Music Streaming</p>
+        <p className="auth-subtitle">Welcome back to Scotify </p>
 
         {error && <div className="error-message">{error}</div>}
 

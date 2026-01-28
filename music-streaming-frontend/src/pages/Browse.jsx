@@ -9,6 +9,7 @@ export default function Browse() {
   const [filteredSongs, setFilteredSongs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('all');
+  const [loading, setLoading] = useState(true);
   const { playSong, currentSong, isPlaying, togglePlay } = usePlayer();
 
   const genres = ['all', 'Pop', 'Rock', 'Jazz', 'Hip Hop', 'Electronic'];
@@ -24,10 +25,11 @@ export default function Browse() {
   const loadSongs = async () => {
     try {
       const data = await songService.getAllSongs();
-      setSongs(data.content || []);
-      setFilteredSongs(data.content || []);
+      setSongs(data || []);
     } catch (error) {
       console.error('Failed to load songs:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,6 +57,8 @@ export default function Browse() {
       playSong(song, filteredSongs);
     }
   };
+
+  if (loading) return <div style={{ padding: '2rem' }}>Loading...</div>;
 
   return (
     <div className="browse-songs">

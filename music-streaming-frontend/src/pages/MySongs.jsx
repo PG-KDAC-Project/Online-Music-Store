@@ -25,7 +25,7 @@ export default function MySongs() {
   const loadMySongs = async () => {
     try {
       const response = await songService.getMySongs();
-      setSongs(response.content || response);
+      setSongs(response || []);
     } catch (err) {
       console.error('Failed to load songs:', err);
     } finally {

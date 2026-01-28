@@ -1,16 +1,16 @@
 import api from './api';
 
 export const adminService = {
-  getAllUsers: async (page = 0, size = 20) => {
-    const { data } = await api.get(`/admin/users?page=${page}&size=${size}`);
+  getAllUsers: async () => {
+    const { data } = await api.get('/admin/users');
     return data;
   },
-  getUsersByRole: async (role, page = 0, size = 20) => {
-    const { data } = await api.get(`/admin/users/role/${role}?page=${page}&size=${size}`);
+  getUsersByRole: async (role) => {
+    const { data } = await api.get(`/admin/users/role/${role}`);
     return data;
   },
-  getPendingArtists: async (page = 0, size = 20) => {
-    const { data } = await api.get(`/admin/artists/pending?page=${page}&size=${size}`);
+  getPendingArtists: async () => {
+    const { data } = await api.get('/admin/artists/pending');
     return data;
   },
   approveArtist: async (artistId) => {

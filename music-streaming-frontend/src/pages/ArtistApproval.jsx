@@ -14,7 +14,7 @@ export default function ArtistApproval() {
   const loadPendingArtists = async () => {
     try {
       const response = await adminService.getPendingArtists();
-      setPendingArtists(response.content || response);
+      setPendingArtists(response || []);
     } catch (err) {
       console.error('Failed to load artists:', err);
     } finally {
