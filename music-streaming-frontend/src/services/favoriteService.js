@@ -7,8 +7,8 @@ export const favoriteService = {
   unlikeSong: async (songId) => {
     await api.delete(`/favorites/songs/${songId}`);
   },
-  getFavoriteSongs: async (page = 0, size = 20) => {
-    const { data } = await api.get(`/favorites/songs?page=${page}&size=${size}`);
+  getFavoriteSongs: async () => {
+    const { data } = await api.get('/favorites/songs');
     return data;
   },
   checkIfLiked: async (songId) => {

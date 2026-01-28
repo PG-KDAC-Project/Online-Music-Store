@@ -44,7 +44,7 @@ export default function Register() {
     <div className="auth-container">
       <div className="auth-card">
         <h1 className="auth-title">Sign Up</h1>
-        <p className="auth-subtitle">Create your account</p>
+        <p className="auth-subtitle">Join Scotify Music today</p>
 
         {error && <div className="error-message">{error}</div>}
 

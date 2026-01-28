@@ -15,7 +15,7 @@ export default function Favorites() {
   const loadFavorites = async () => {
     try {
       const data = await favoriteService.getFavoriteSongs();
-      setSongs(data.content || []);
+      setSongs(data || []);
     } catch (error) {
       console.error('Failed to load favorites:', error);
     } finally {

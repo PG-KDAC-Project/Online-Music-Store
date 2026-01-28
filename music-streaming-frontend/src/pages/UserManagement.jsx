@@ -7,20 +7,18 @@ export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
-  const [currentUserEmail, setCurrentUserEmail] = useState(null);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) setCurrentUserEmail(user.email);
     loadUsers();
   }, [filter]);
 
   const loadUsers = async () => {
+    setLoading(true);
     try {
       const response = filter === 'all'
         ? await adminService.getAllUsers()
         : await adminService.getUsersByRole(filter);
-      setUsers(response.content || response);
+      setUsers(response || []);
     } catch (err) {
       console.error('Failed to load users:', err);
     } finally {

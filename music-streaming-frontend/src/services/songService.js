@@ -1,8 +1,8 @@
 import api from './api';
 
 export const songService = {
-  getAllSongs: async (page = 0, size = 20) => {
-    const { data } = await api.get(`/songs?page=${page}&size=${size}`);
+  getAllSongs: async () => {
+    const { data } = await api.get('/songs');
     return data;
   },
   getSongById: async (id) => {
@@ -32,8 +32,8 @@ export const songService = {
   unlikeSong: async (id) => {
     await api.delete(`/songs/${id}/like`);
   },
-  getMySongs: async (page = 0, size = 20) => {
-    const { data } = await api.get(`/songs/my-songs?page=${page}&size=${size}`);
+  getMySongs: async () => {
+    const { data } = await api.get('/songs/my-songs');
     return data;
   },
   updateSong: async (id, formData) => {

@@ -63,7 +63,7 @@ const PremiumManagement = () => {
         <div className="current-package">
           <h3>Current Package</h3>
           <p><strong>Name:</strong> {currentPackage.name}</p>
-          <p><strong>Price:</strong> ${currentPackage.price}</p>
+          <p><strong>Price:</strong> ₹{currentPackage.price}</p>
           <p><strong>Duration:</strong> {currentPackage.durationDays} days</p>
         </div>
       )}
@@ -91,7 +91,7 @@ const PremiumManagement = () => {
         </div>
 
         <div className="form-group">
-          <label>Price ($)</label>
+          <label>Price (₹)</label>
           <input
             type="number"
             name="price"

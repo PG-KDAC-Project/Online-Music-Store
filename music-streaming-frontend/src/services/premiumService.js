@@ -5,8 +5,16 @@ export const premiumService = {
     const { data } = await api.get('/premium/package');
     return data;
   },
-  purchasePremium: async () => {
-    const { data } = await api.post('/premium/purchase');
+  createPaymentOrder: async (customerName, customerEmail, customerPhone) => {
+    const { data } = await api.post('/payment/create-order', {
+      customerName,
+      customerEmail,
+      customerPhone
+    });
+    return data;
+  },
+  verifyPayment: async (orderId) => {
+    const { data } = await api.post('/payment/verify', { orderId });
     return data;
   },
   getUserSubscription: async () => {
