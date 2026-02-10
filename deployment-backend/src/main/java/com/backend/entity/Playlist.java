@@ -23,7 +23,6 @@ public class Playlist {
     private String name;
     private String description;
     
-    // Added based on logs
     @Column(name = "is_public")
     private Boolean isPublic; 
 
@@ -31,7 +30,7 @@ public class Playlist {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // --- DATABASE FIX: @JoinTable ---
+    // --- DATABASE FIX: @JoinTable to create the table ---
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
         name = "playlist_songs",
@@ -40,13 +39,15 @@ public class Playlist {
     )
     private List<Song> songs = new ArrayList<>();
 
-    // --- RESTORED BUSINESS LOGIC ---
+    // --- RESTORED LOGIC ---
 
-    public void addSong(Song song) {
+    // Must return boolean to satisfy PlaylistServiceImpl
+    public boolean addSong(Song song) {
         if (this.songs == null) {
             this.songs = new ArrayList<>();
         }
         this.songs.add(song);
+        return true; 
     }
 
     public void removeSongById(Long songId) {
@@ -63,21 +64,21 @@ public class Playlist {
         return this.songs!= null? this.songs.size() : 0;
     }
 
-    public Double getTotalDuration() {
-        if (this.songs == null) return 0.0;
-        return this.songs.stream()
-               .mapToDouble(Song::getDuration)
-               .sum();
+    // Returns Integer to satisfy ServiceImpl expectation
+    public Integer getTotalDuration() {
+        if (this.songs == null) return 0;
+        return (int) this.songs.stream()
+              .mapToDouble(song -> song.getDuration()!= null? song.getDuration() : 0.0)
+              .sum();
     }
 
     public String getFormattedTotalDuration() {
-        Double totalSeconds = getTotalDuration();
-        long minutes = (long) (totalSeconds / 60);
-        long seconds = (long) (totalSeconds % 60);
+        Integer totalSeconds = getTotalDuration();
+        long minutes = totalSeconds / 60;
+        long seconds = totalSeconds % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
     
-    // Getter manually added for Lombok consistency if needed
     public Boolean getIsPublic() {
         return isPublic;
     }
