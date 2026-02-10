@@ -21,28 +21,32 @@ public class Song {
     private Long id;
 
     private String title;
-    private String artist;
+
+    // --- CRITICAL FIX: Artist must be a User entity, not a String ---
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id")
+    private User artist;
+
     private String album;
     private String genre;
-    private String language; // Restored
+    private String language;
     
+    // Duration as Double to match Service expectations
     private Double duration; 
     
-    // Paths
     private String songUrl;
     private String thumbnailUrl;
-    private String filePath;       // Restored
-    private String coverImagePath; // Restored
+    private String filePath;
+    private String coverImagePath;
 
-    // Counters
     @Builder.Default
-    private Long playCount = 0L;   // Restored
+    private Long playCount = 0L;
     
     @Builder.Default
-    private Long likeCount = 0L;   // Restored
+    private Long likeCount = 0L;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt; // Restored
+    private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
@@ -51,11 +55,11 @@ public class Song {
         if (likeCount == null) likeCount = 0L;
     }
 
-    // --- DATABASE FIX: mappedBy ---
+    // --- DATABASE FIX: mappedBy for Playlist ---
     @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
     private List<Playlist> playlists = new ArrayList<>();
 
-    // --- RESTORED BUSINESS LOGIC ---
+    // --- RESTORED HELPER METHODS FOR SERVICE LAYER ---
 
     public String getFormattedDuration() {
         if (duration == null) return "00:00";
