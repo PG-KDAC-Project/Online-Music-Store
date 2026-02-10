@@ -5,82 +5,84 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "songs", indexes = {
+    @Index(name = "idx_title", columnList = "title"),
+    @Index(name = "idx_genre", columnList = "genre"),
+    @Index(name = "idx_artist_id", columnList = "artist_id"),
+    @Index(name = "idx_created_at", columnList = "created_at")
+})
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "songs")
 public class Song {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(nullable = false, length = 255)
     private String title;
-
-    // --- CRITICAL FIX: Artist must be a User entity, not a String ---
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "artist_id")
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_id", nullable = false)
     private User artist;
-
+    
+    @Column(length = 255)
     private String album;
+    
+    @Column(length = 50)
     private String genre;
+    
+    @Column(length = 50)
     private String language;
     
-    // Duration as Double to match Service expectations
-    private Double duration; 
+    @Column(nullable = false)
+    private Integer duration;
     
-    private String songUrl;
-    private String thumbnailUrl;
+    @Column(name = "file_path", nullable = false, length = 500)
     private String filePath;
+    
+    @Column(name = "cover_image_path", length = 500)
     private String coverImagePath;
-
+    
+    @Column(name = "play_count", nullable = false)
     @Builder.Default
     private Long playCount = 0L;
     
+    @Column(name = "like_count", nullable = false)
     @Builder.Default
     private Long likeCount = 0L;
-
-    @Column(name = "created_at")
+    
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        if (playCount == null) playCount = 0L;
-        if (likeCount == null) likeCount = 0L;
     }
-
-    // --- DATABASE FIX: mappedBy for Playlist ---
-    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
-    private List<Playlist> playlists = new ArrayList<>();
-
-    // --- RESTORED HELPER METHODS FOR SERVICE LAYER ---
-
-    public String getFormattedDuration() {
-        if (duration == null) return "00:00";
-        long minutes = (long) (duration / 60);
-        long seconds = (long) (duration % 60);
-        return String.format("%02d:%02d", minutes, seconds);
-    }
-
+    
     public void incrementPlayCount() {
-        if (this.playCount == null) this.playCount = 0L;
         this.playCount++;
     }
-
+    
     public void incrementLikeCount() {
-        if (this.likeCount == null) this.likeCount = 0L;
         this.likeCount++;
     }
-
+    
     public void decrementLikeCount() {
-        if (this.likeCount!= null && this.likeCount > 0) {
+        if (this.likeCount > 0) {
             this.likeCount--;
         }
+    }
+    
+    public String getFormattedDuration() {
+        int minutes = duration / 60;
+        int seconds = duration % 60;
+        return String.format("%d:%02d", minutes, seconds);
     }
 }
