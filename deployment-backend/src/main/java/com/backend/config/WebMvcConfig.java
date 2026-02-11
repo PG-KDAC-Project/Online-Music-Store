@@ -9,21 +9,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     
    
-    @Override
+   @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-            // REMOVE: .allowedOrigins("*") 
-            // ADD: Your specific frontend URLs (Netlify + Localhost for testing)
-            .allowedOrigins(
-                "https://online-music-store.netlify.app",
-                "https://www.online-music-store.netlify.app",
-                "http://localhost:5173", // If using Vite locally
-                "http://localhost:3000"  // If using CRA locally
-            )
-            .allowedOriginPatterns("https://*.netlify.app")
-            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-            .allowedHeaders("*")
-            .allowCredentials(true); // This requires specific origins, not "*"
+    registry.addMapping("/**")
+        .allowedOriginPatterns(
+            "https://*.netlify.app",
+            "http://localhost:5173",
+            "http://localhost:3000"
+        )
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        .allowedHeaders("*")
+        .allowCredentials(true);
     }
     
     @Override
