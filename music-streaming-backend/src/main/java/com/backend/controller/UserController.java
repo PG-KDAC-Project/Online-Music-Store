@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @PreAuthorize("isAuthenticated()")
 public class UserController {
     

@@ -27,7 +27,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/songs")
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 public class SongController {
     

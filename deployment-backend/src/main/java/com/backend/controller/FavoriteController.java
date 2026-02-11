@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/favorites")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class FavoriteController {
     
